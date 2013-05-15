@@ -1,5 +1,7 @@
 package com.octo.vanillapull.repository;
 
+import org.springframework.cglib.proxy.Enhancer;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.lang.reflect.ParameterizedType;
@@ -14,6 +16,10 @@ public class GenericDao<Key, Entity> {
 
 	@SuppressWarnings("unchecked")
 	public GenericDao() {
+    // Skip initialization if it's a proxy
+    if(Enhancer.isEnhanced(getClass())) {
+      return;
+    }
 		ParameterizedType genericSuperclass = (ParameterizedType) getClass()
 				.getGenericSuperclass();
 		this.entityClass = (Class<Entity>) genericSuperclass

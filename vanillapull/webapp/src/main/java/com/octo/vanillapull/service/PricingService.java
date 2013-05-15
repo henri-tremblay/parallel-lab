@@ -3,19 +3,18 @@ package com.octo.vanillapull.service;
 import com.octo.vanillapull.repository.ParameterDao;
 import com.octo.vanillapull.util.Gaussian;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PricingService {
 
 	@Autowired
 	private ParameterDao parameterDao;
 
-	public double calculatePrice(@RequestParam double maturity, @RequestParam double spot, @RequestParam double strike,
-                                 @RequestParam double volatility) throws Exception {
+	public double calculatePrice(double maturity, double spot, double strike, double volatility) {
 
 		// // Retrieve interest rate from database parameters
-		double interestRate = Double.valueOf(parameterDao.findById(
-				"INTEREST_RATE").getValue());
+		double interestRate = parameterDao.findById("INTEREST_RATE").getDoubleValue();
 
 		maturity /= 360.0;
 

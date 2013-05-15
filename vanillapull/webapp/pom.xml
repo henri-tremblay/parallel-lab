@@ -140,6 +140,7 @@
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <version>2.2.9</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Testing -->
@@ -167,6 +168,13 @@
                     <port>9090</port>
                     <path>/</path>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.hsqldb</groupId>
+                        <artifactId>hsqldb</artifactId>
+                        <version>2.2.9</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

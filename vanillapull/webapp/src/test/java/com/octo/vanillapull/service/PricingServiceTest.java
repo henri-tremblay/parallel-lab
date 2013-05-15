@@ -14,8 +14,7 @@ public class PricingServiceTest {
 	@Test
 	public void testCalculatePrice() throws Exception {
 		ParameterDao parameterDao = createMock(ParameterDao.class);
-		expect(parameterDao.findById("INTEREST_RATE")).andStubReturn(
-				new Parameter("INTEREST_RATE", "0.015"));
+		expect(parameterDao.findById("INTEREST_RATE")).andStubReturn(new Parameter("INTEREST_RATE", "0.015"));
 		replay(parameterDao);
 
 		service.setParameterDao(parameterDao);
