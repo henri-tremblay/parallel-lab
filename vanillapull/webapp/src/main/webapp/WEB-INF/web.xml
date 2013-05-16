@@ -10,7 +10,7 @@
     </context-param>
     <context-param>
         <param-name>spring.profiles.default</param-name>
-        <!-- select vanilla,mono,naive -->
+        <!-- select vanilla,mono,naive,pool -->
         <param-value>naive</param-value>
     </context-param>
 
