@@ -22,15 +22,15 @@ insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('BNP',
 insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('EN','Bouygues', 21.30, 1, -0.31);
 insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('CAP','Capgemini', 39.15, 1, 0.03);
 insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('CA','Carrefour', 23.33, 1, 0.14);
-insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('ACA','Cr�dit Agricole', 6.92, 1, 0.13);
+insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('ACA','Credit Agricole', 6.92, 1, 0.13);
 insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('EAD','EADS', 42.44, 1, 1.24);
 insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('EDF','EDF', 18.16, 1, 0.04);
 insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('EI','Essilor', 88.73, 1, 0.57);
-insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('FTE','France T�l�com', 8.32, 1, -0.01);
+insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('FTE','France Telecom', 8.32, 1, -0.01);
 insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('GTO','Gemalto', 60, 1, 1.25);
 insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('GSZ','GDF Suez', 16.58, 1, -0.16);
 insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('BN','Groupe Danone', 58.95, 1, 0.13);
-insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('OR','L''Or�al', 136, 1, 1.85);
+insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('OR','L''Oreal', 136, 1, 1.85);
 insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('LG','Lafarge', 53.33, 1, 0.74);
 insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('LR','Legrand', 37.68, 1, 0.17);
 insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('MC','LVMH', 135.75, 1, 2.6);
@@ -43,7 +43,7 @@ insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('SAF',
 insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('SGO','Saint-Gobain', 32.6, 1, 0.41);
 insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('SAN','Sanofi', 84.75, 1, 0.05);
 insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('SU','Schneider Electric', 58.9, 1, 0.22);
-insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('GLE','Soci�t� G�n�rale', 30, 1, 0.15);
+insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('GLE','Societe Generale', 30, 1, 0.15);
 insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('SOLB','Solvay', 115, 1, -2.15);
 insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('STM','STMicroelectronics', 7.05, 1, -0.01);
 insert into INSTRUMENT(symbol, label, SPOT, VOLATILITY, VARIATION) values('TEC','Technip', 85.46, 1, 0.76);
