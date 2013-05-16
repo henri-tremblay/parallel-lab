@@ -43,9 +43,9 @@ public class ExecutorMultiThreadedMonteCarlo implements PricingService {
   }
 
   @Value("${monteCarloIterations}")
-  private long numberOfIterations;
+  long numberOfIterations;
   @Value("${interestRate}")
-  private double interestRate;
+  double interestRate;
 
   private final int processors = Runtime.getRuntime().availableProcessors();
   private ExecutorService pool;

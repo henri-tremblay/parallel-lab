@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 public class MonoThreadedMonteCarlo implements PricingService {
 
   @Value("${monteCarloIterations}")
-  private long numberOfIterations;
+  long numberOfIterations;
   @Value("${interestRate}")
-  private double interestRate;
+  double interestRate;
 
   @Override
   public double calculatePrice(double maturity, double spot, double strike, double volatility) {
@@ -48,4 +48,6 @@ public class MonoThreadedMonteCarlo implements PricingService {
   public double computePremiumForMonteCarloIteration(double computedBestPrice, double strike) {
     return Math.max(computedBestPrice - strike, 0);
   }
+
+
 }
