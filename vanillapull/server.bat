@@ -1,1 +1,1 @@
-mvn -pl webapp tomcat7:run
+mvn -pl webapp tomcat7:run %*
