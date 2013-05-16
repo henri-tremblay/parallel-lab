@@ -5,41 +5,40 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.CountDownLatch;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import java.util.concurrent.*;
 
 /**
  * @author Henri Tremblay
  */
-@Profile("naive")
+@Profile("executor")
 @Service
-public class NaiveMultiThreadedMonteCarlo implements PricingService {
+public class ExecutorMultiThreadedMonteCarlo implements PricingService {
 
-  private class MonteCarloThread extends Thread {
+  private class MonteCarloTask implements Callable<Double> {
 
     private final long nbIterations;
     private double maturity,spot, strike, volatility;
     double bestPremiumsComputed = 0;
-    private CountDownLatch latch;
 
-    public MonteCarloThread(long nbIterations, double maturity, double spot, double strike, double volatility, CountDownLatch latch) {
+    public MonteCarloTask(long nbIterations, double maturity, double spot, double strike, double volatility) {
       this.nbIterations = nbIterations;
       this.maturity = maturity;
       this.spot = spot;
       this.strike = strike;
       this.volatility = volatility;
-      this.latch = latch;
     }
 
     @Override
-    public void run() {
+    public Double call() {
       for (long i = 0; i < nbIterations; i++) {
         double gaussian = StdRandom.gaussian();
         double priceComputed = computeMonteCarloIteration(spot, interestRate, volatility, gaussian, maturity);
         double bestPremium = computePremiumForMonteCarloIteration(priceComputed, strike);
         bestPremiumsComputed += bestPremium;
       }
-
-      latch.countDown();
+      return bestPremiumsComputed;
     }
   }
 
@@ -49,6 +48,17 @@ public class NaiveMultiThreadedMonteCarlo implements PricingService {
   private double interestRate;
 
   private final int processors = Runtime.getRuntime().availableProcessors();
+  private ExecutorService pool;
+
+  @PostConstruct
+  public void init() throws Exception {
+    pool = Executors.newFixedThreadPool(processors);
+  }
+
+  @PreDestroy
+  public void cleanUp() throws Exception {
+    pool.shutdown();
+  }
 
   @Override
   public double calculatePrice(double maturity, double spot, double strike, double volatility) {
@@ -57,26 +67,23 @@ public class NaiveMultiThreadedMonteCarlo implements PricingService {
 
     long nbPerThreads = numberOfIterations / processors;
 
-    CountDownLatch latch = new CountDownLatch(processors);
-
-    MonteCarloThread[] threads = new MonteCarloThread[processors];
+    @SuppressWarnings("unchecked")
+    Future<Double>[] tasks = new Future[processors];
     for (int i = 0; i < processors; i++) {
-      MonteCarloThread thread = new MonteCarloThread(nbPerThreads, maturity, spot, strike, volatility, latch);
-      thread.setName(Thread.currentThread() + " monteCarlo " + i);
-      thread.start();
-      threads[i]= thread;
-    }
-
-    try {
-      latch.await();
-    } catch (InterruptedException e) {
-      throw new RuntimeException(e);
+      MonteCarloTask task = new MonteCarloTask(nbPerThreads, maturity, spot, strike, volatility);
+      tasks[i] = pool.submit(task);
     }
 
     double bestPremiumsComputed = 0;
 
     for (int i = 0; i < processors; i++) {
-      bestPremiumsComputed += threads[i].bestPremiumsComputed;
+      try {
+        bestPremiumsComputed += tasks[i].get();
+      } catch (InterruptedException e) {
+        throw new RuntimeException(e);
+      } catch (ExecutionException e) {
+        throw new RuntimeException(e);
+      }
     }
 
     // Compute mean

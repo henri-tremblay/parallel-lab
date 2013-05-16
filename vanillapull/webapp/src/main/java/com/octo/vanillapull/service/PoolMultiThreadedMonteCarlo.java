@@ -59,6 +59,7 @@ public class PoolMultiThreadedMonteCarlo implements PricingService {
   @Value("${interestRate}")
   private double interestRate;
 
+  private final int processors = Runtime.getRuntime().availableProcessors();
   private ForkJoinPool pool;
 
   @PostConstruct
@@ -76,7 +77,6 @@ public class PoolMultiThreadedMonteCarlo implements PricingService {
 
     maturity /= 360.0;
 
-    int processors = Runtime.getRuntime().availableProcessors();
     long nbPerThreads = numberOfIterations / processors;
 
     MonteCarloTask[] tasks = new MonteCarloTask[processors];

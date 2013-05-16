@@ -6,6 +6,8 @@ import bootstrap._
 
 class PricingSimulation extends Simulation {
   val port = 9090
+  val users = 100
+  val duration = 30
 
   val httpConf = httpConfig
     .baseURL("http://localhost:" + port)
@@ -44,7 +46,7 @@ class PricingSimulation extends Simulation {
   }
 
   val scn = scenario("Pricing")
-    .repeat(10) {
+    .during(duration seconds) {
     feed(csv("maturity.csv").random)
       .feed(csv("stock.csv").random)
       .feed(strikeFeeder)
@@ -54,5 +56,5 @@ class PricingSimulation extends Simulation {
       .check(status.is(200)))
   }
 
-  setUp(scn.users(50).ramp(5 milliseconds).protocolConfig(httpConf))
+  setUp(scn.users(users).ramp(5 milliseconds).protocolConfig(httpConf))
 }
