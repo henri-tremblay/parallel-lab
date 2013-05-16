@@ -11,14 +11,39 @@
 <body ng-controller="StockCtrl">
 <header>
     <div class="container">
-        <h1>Stock Pricer</h1>
+        <h1>Vanilla Pull</h1>
     </div>
 </header>
 <div class="container-fluid">
     <div class="row-fluid">
-        <div class="span12 well">
-            <h2>Enter the product information</h2>
-            <input ng-model="query">
+        <div class="span9 well">
+            <h2>CAC40</h2>
+            <table class="table table-condensed">
+                <thead>
+                <tr>
+                    <td>Symbol</td>
+                    <td>Label</td>
+                    <td>Spot</td>
+                    <td>Volatility</td>
+                    <td>Variation</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="stock in stocks">
+                    <td>{{stock.symbol}}</td>
+                    <td>{{stock.label}}</td>
+                    <td>{{stock.spot}}</td>
+                    <td>{{stock.volatility}}</td>
+                    <td>{{stock.variation}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="span3 well">
+            <h2>Buy</h2>
+            <input ng-model="symbol">
+            <input ng-model="strike">
+            <input ng-model="maturity">
         </div>
     </div>
 </div>
