@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 
 public class PricingServiceTest {
 
-	private PricingService service = new PricingService();
+	private BSPricingService service = new BSPricingService();
 
 	@Test
 	public void testCalculatePrice() throws Exception {

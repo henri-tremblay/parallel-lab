@@ -65,16 +65,5 @@ public class Gaussian {
 		else
 			return PhiInverse(y, delta, mid, hi);
 	}
-
-	// test client
-	public static void main(String[] args) {
-		double z = Double.parseDouble(args[0]);
-		double mu = Double.parseDouble(args[1]);
-		double sigma = Double.parseDouble(args[2]);
-		System.out.println(Phi(z, mu, sigma));
-		double y = Phi(z);
-		System.out.println(PhiInverse(y));
-	}
-
 }
 

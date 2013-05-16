@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="org.henri.stockpricer">
+	<logger name="com.octo">
 		<level value="info" />
 	</logger>
 	
@@ -33,11 +33,11 @@
 	</logger>
 
 	<logger name="org.springframework.http">
-		<level value="debug" />
+		<level value="info" />
 	</logger>
 
 	<logger name="org.springframework.web">
-		<level value="debug" />
+		<level value="info" />
 	</logger>
 
 	<!-- Root Logger -->

@@ -30,6 +30,7 @@ package com.octo.vanillapull.util;
  *************************************************************************/
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * <i>Standard random</i>. This class provides methods for generating random
@@ -42,34 +43,28 @@ import java.util.Random;
  */
 public class StdRandom {
 
-	private static Random random = new Random();
-
-	/**
-	 * Set the seed of the psedurandom number generator.
-	 */
-	public static void setSeed(long seed) {
-		random = new Random(seed);
-	}
-
+  private static Random getRandom() {
+    return ThreadLocalRandom.current();
+  }
 	/**
 	 * Return real number uniformly in [0, 1).
 	 */
 	public static double uniform() {
-		return random.nextDouble();
+		return  getRandom().nextDouble();
 	}
 
 	/**
 	 * Return real number uniformly in [0, 1).
 	 */
 	public static double random() {
-		return random.nextDouble();
+		return  getRandom().nextDouble();
 	}
 
 	/**
 	 * Return an integer uniformly between 0 and N-1.
 	 */
 	public static int uniform(int N) {
-		return random.nextInt(N);
+		return getRandom().nextInt(N);
 	}
 
 	// /////////////////////////////////////////////////////////////////////////
@@ -269,26 +264,6 @@ public class StdRandom {
 			int temp = a[i];
 			a[i] = a[r];
 			a[r] = temp;
-		}
-	}
-
-	/**
-	 * Unit test.
-	 */
-	public static void main(String[] args) {
-		int N = Integer.parseInt(args[0]);
-		if (args.length == 2)
-			StdRandom.setSeed(Long.parseLong(args[1]));
-
-		double[] t = { .5, .3, .1, .1 };
-
-		for (int i = 0; i < N; i++) {
-			System.out.printf("%2d ", uniform(100));
-			System.out.printf("%8.5f ", uniform(10.0, 99.0));
-			System.out.printf("%5b ", bernoulli(.5));
-			System.out.printf("%7.5f ", gaussian(9.0, .2));
-			System.out.printf("%2d ", discrete(t));
-			System.out.println();
 		}
 	}
 

@@ -27,14 +27,12 @@ class PricingSimulation extends Simulation {
   )
 
   val scn = scenario("Pricing")
-    .repeat(2) {
+    .repeat(20) {
         exec(http("price")
         .get("/services/pricer/price?symbol=BNP&maturity=90&strike=17")
         .headers(headers_24)
         .check(status.is(200)))
     }
 
-  setUp(scn.users(5).ramp(5 milliseconds).protocolConfig(httpConf))
-
-  assertThat(global.responseTime.mean.lessThan(50))
+  setUp(scn.users(50).ramp(5 milliseconds).protocolConfig(httpConf))
 }
