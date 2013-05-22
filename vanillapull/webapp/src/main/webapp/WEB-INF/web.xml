@@ -10,8 +10,8 @@
     </context-param>
     <context-param>
         <param-name>spring.profiles.default</param-name>
-        <!-- select vanilla,mono,naive,pool -->
-        <param-value>naive</param-value>
+        <!-- select vanilla,mono,naive,executor,pool,akka -->
+        <param-value>akka</param-value>
     </context-param>
 
     <!-- Creates the Spring Container web by all Servlets and Filters -->
