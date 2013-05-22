@@ -30,8 +30,6 @@ public class AkkaMonteCarlo implements PricingService {
   @Value("${interestRate}")
   double interestRate;
 
-  private ActorSystem system;
-
   public static double computeMonteCarloIteration(double spot, double rate, double volatility, double gaussian, double maturity) {
     double result = spot * Math.exp((rate - Math.pow(volatility, 2) * 0.5) * maturity + volatility * gaussian * Math.sqrt(maturity));
     return result;
@@ -43,20 +41,21 @@ public class AkkaMonteCarlo implements PricingService {
 
   @PostConstruct
   public void init() throws Exception {
-    // Create an Akka system
-    system = ActorSystem.create("MonteCarloSystem", ConfigFactory.load().getConfig("master"));
+
   }
 
   @PreDestroy
   public void cleanUp() throws Exception {
-    system.shutdown();
+
   }
 
   @Override
   public double calculatePrice(double maturity, double spot, double strike, double volatility) {
+    // Create an Akka system
+    ActorSystem system = ActorSystem.create("MonteCarloSystem", ConfigFactory.load().getConfig("master"));
 
     // create the master
-    ActorRef master = system.actorOf(new Props(new UntypedActorFactory() {
+    ActorRef master;master = system.actorOf(new Props(new UntypedActorFactory() {
       public UntypedActor create() {
         return new Master(interestRate);
       }
@@ -73,6 +72,8 @@ public class AkkaMonteCarlo implements PricingService {
       bestPremiumsComputed = (Double) Await.result(future, timeout.duration());
     } catch (Exception e) {
       throw new RuntimeException(e);
+    } finally {
+      system.shutdown();
     }
 
     return bestPremiumsComputed;
