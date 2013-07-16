@@ -1,10 +1,9 @@
 package com.octo.vanillapull.service;
 
 import akka.actor.*;
-import akka.routing.FromConfig;
+import akka.routing.RoundRobinRouter;
 import akka.util.Timeout;
 import com.octo.vanillapull.util.StdRandom;
-import com.typesafe.config.ConfigFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -52,7 +51,7 @@ public class AkkaMonteCarlo implements PricingService {
   @Override
   public double calculatePrice(double maturity, double spot, double strike, double volatility) {
     // Create an Akka system
-    ActorSystem system = ActorSystem.create("MonteCarloSystem", ConfigFactory.load().getConfig("master"));
+    ActorSystem system = ActorSystem.create("MonteCarloSystem");
 
     // create the master
     ActorRef master;master = system.actorOf(new Props(new UntypedActorFactory() {
@@ -106,7 +105,7 @@ public class AkkaMonteCarlo implements PricingService {
         public UntypedActor create() {
           return new Worker(interestRate);
         }
-      }).withRouter(new FromConfig()), "workerRouter");
+      }).withRouter(new RoundRobinRouter(processors)), "workerRouter");
       this.interestRate = interestRate;
     }
 
