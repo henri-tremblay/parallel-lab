@@ -18,26 +18,27 @@ import java.util.List;
 @RequestMapping("/instrument/*")
 public class InstrumentController {
 
-  @Inject
-  private InstrumentDao instrumentDao;
+	@Inject
+	private InstrumentDao instrumentDao;
 
-  @RequestMapping(value="/list", method= RequestMethod.GET, produces="application/json")
-  public @ResponseBody List<InstrumentDisplay> listAllInstruments() {
-    // Retrieve instruments configuration
-    List<Instrument> insList = instrumentDao.findAllOrderedBySymbol();
+	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody
+	List<InstrumentDisplay> listAllInstruments() {
+		// Retrieve instruments configuration
+		List<Instrument> insList = instrumentDao.findAllOrderedBySymbol();
 
-    // Retrieve instrument after instrument
-    List<InstrumentDisplay> returnList = new ArrayList<>(insList.size());
-    for (Instrument ins : insList) {
-      InstrumentDisplay insDisplay = new InstrumentDisplay();
-      insDisplay.setSymbol(ins.getSymbol());
-      insDisplay.setLabel(ins.getLabel());
-      insDisplay.setSpot(ins.getSpot());
-      insDisplay.setVolatility(ins.getVolatility());
-      insDisplay.setVariation(ins.getVariation());
-      returnList.add(insDisplay);
-    }
+		// Retrieve instrument after instrument
+		List<InstrumentDisplay> returnList = new ArrayList<>(insList.size());
+		for (Instrument ins : insList) {
+			InstrumentDisplay insDisplay = new InstrumentDisplay();
+			insDisplay.setSymbol(ins.getSymbol());
+			insDisplay.setLabel(ins.getLabel());
+			insDisplay.setSpot(ins.getSpot());
+			insDisplay.setVolatility(ins.getVolatility());
+			insDisplay.setVariation(ins.getVariation());
+			returnList.add(insDisplay);
+		}
 
-    return returnList;
-  }
+		return returnList;
+	}
 }

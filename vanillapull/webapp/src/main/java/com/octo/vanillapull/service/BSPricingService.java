@@ -13,16 +13,18 @@ public class BSPricingService implements PricingService {
 	@Autowired
 	private ParameterDao parameterDao;
 
-	@Override public double calculatePrice(double maturity, double spot, double strike, double volatility) {
+	@Override
+	public double calculatePrice(double maturity, double spot, double strike,
+			double volatility) {
 
 		// // Retrieve interest rate from database parameters
-		double interestRate = parameterDao.findById("INTEREST_RATE").getDoubleValue();
+		double interestRate = parameterDao.findById("INTEREST_RATE")
+				.getDoubleValue();
 
 		maturity /= 360.0;
 
 		// from http://introcs.cs.princeton.edu/22library/
-		return callPrice(spot, strike, interestRate, volatility,
-				maturity);
+		return callPrice(spot, strike, interestRate, volatility, maturity);
 	}
 
 	/**
@@ -35,7 +37,8 @@ public class BSPricingService implements PricingService {
 	 * @param T
 	 * @return
 	 */
-	public static double callPrice(double S, double X, double r, double sigma, double T) {
+	public static double callPrice(double S, double X, double r, double sigma,
+			double T) {
 		double d1 = (Math.log(S / X) + (r + sigma * sigma / 2) * T)
 				/ (sigma * Math.sqrt(T));
 		double d2 = d1 - sigma * Math.sqrt(T);
