@@ -1,5 +1,8 @@
 package com.octo.vanillapull.actor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
 
@@ -7,6 +10,8 @@ import com.octo.vanillapull.service.AkkaMonteCarlo;
 
 public class ResultListener extends UntypedActor {
 
+	public final static Logger logger = LoggerFactory.getLogger(ResultListener.class);
+	
 	private long nbPerThreads;
 	public double interestRate;
 	private double bestPremiumsComputed = 0;
@@ -36,7 +41,7 @@ public class ResultListener extends UntypedActor {
 				double pricedValue = Math.exp(-interestRate * maturity)
 						* meanOfPremiums;
 
-				//System.out.println("[LISTENER] send to future :" + message + " to " + getSender());
+				if(logger.isDebugEnabled()) logger.debug("[LISTENER] send to future :" + message + " to " + getSender());
 				// Return the answer
 				parent.tell(pricedValue, getSelf());
 

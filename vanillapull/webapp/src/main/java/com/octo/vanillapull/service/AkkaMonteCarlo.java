@@ -9,8 +9,11 @@ import com.octo.vanillapull.actor.Master;
 import com.octo.vanillapull.actor.ResultListener;
 import com.octo.vanillapull.actor.Work;
 import com.octo.vanillapull.util.StdRandom;
+import com.octo.vanillapull.web.ContextInitializer;
 import com.sun.swing.internal.plaf.synth.resources.synth;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -30,6 +33,9 @@ import static akka.pattern.Patterns.*;
 @Profile("akka")
 @Service
 public class AkkaMonteCarlo implements PricingService {
+	
+	public final static Logger logger = LoggerFactory.getLogger(AkkaMonteCarlo.class);
+	
 
 	public static final int processors = Runtime.getRuntime()
 			.availableProcessors();
@@ -85,10 +91,10 @@ public class AkkaMonteCarlo implements PricingService {
 
 		double bestPremiumsComputed = 0;
 		try {
-			//System.out.println("[SERVICE] Waiting thread");
+			if(logger.isDebugEnabled()) logger.debug("[SERVICE] Waiting thread");
 			bestPremiumsComputed = (Double) Await.result(future,
 					timeout.duration());
-			//System.out.println("[SERVICE] Releasing thread");
+			if(logger.isDebugEnabled()) logger.debug("[SERVICE] Releasing thread");
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
