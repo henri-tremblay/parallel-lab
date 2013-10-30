@@ -36,8 +36,7 @@ public class ResultListener extends UntypedActor {
 				double pricedValue = Math.exp(-interestRate * maturity)
 						* meanOfPremiums;
 
-				System.out.println("[LISTENER] send to future :" + message
-						+ " to " + getSender());
+				//System.out.println("[LISTENER] send to future :" + message + " to " + getSender());
 				// Return the answer
 				parent.tell(pricedValue, getSelf());
 
