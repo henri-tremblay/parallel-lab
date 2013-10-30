@@ -5,9 +5,9 @@ import akka.util.duration._
 import bootstrap._
 
 class PricingSimulation extends Simulation {
-  val port = 8080
+  val port = 9090
   val users = 100
-  val duration = 100
+  val duration = 30
 
   val httpConf = httpConfig
     .baseURL("http://localhost:" + port)
