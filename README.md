@@ -5,7 +5,7 @@ Laboratory to demonstrate different way to do parallel programming.
 
 ### Launch ##
 
-The projects must to be launch with the parameter `implementation` (see launch.sh). 
+The project must be launched with the parameter `implementation` (see launch.sh). 
 Available values are:
 - naive
 - akka
