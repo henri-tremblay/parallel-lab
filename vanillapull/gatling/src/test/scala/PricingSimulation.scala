@@ -47,7 +47,7 @@ class PricingSimulation extends Simulation {
 
   val scn = scenario("Pricing")
     .during(duration seconds) {
-    feed(csv("maturity.csv").random)
+	  feed(csv("maturity.csv").random)
       .feed(csv("stock.csv").random)
       .feed(strikeFeeder)
       .exec(http("price")

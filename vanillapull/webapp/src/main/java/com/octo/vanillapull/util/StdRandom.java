@@ -43,21 +43,22 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class StdRandom {
 
-  private static Random getRandom() {
-    return ThreadLocalRandom.current();
-  }
+	private static Random getRandom() {
+		return ThreadLocalRandom.current();
+	}
+
 	/**
 	 * Return real number uniformly in [0, 1).
 	 */
 	public static double uniform() {
-		return  getRandom().nextDouble();
+		return getRandom().nextDouble();
 	}
 
 	/**
 	 * Return real number uniformly in [0, 1).
 	 */
 	public static double random() {
-		return  getRandom().nextDouble();
+		return getRandom().nextDouble();
 	}
 
 	/**
