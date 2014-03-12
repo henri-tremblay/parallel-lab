@@ -12,5 +12,6 @@ org.eclipse.wst.common.component
 org.eclipse.wst.common.project.facet.core.xml
 **/.settings
 *.DS_Store
-=======
-target/
+*.zip
+
+
